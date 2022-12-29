@@ -1,0 +1,107 @@
+  /*
+ ** A conversion program from any base to any other base.
+ **
+ ** Prompts for any base number and the base it is to be converted to.
+ ** Prints number in specified base.
+ * 
+ ** Abderraouf Ahmed Abla, Abd Elouahab Lakel, Lyna Moumene. December 2022. LMD, Group 09.
+ *
+ *
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <conio.h>
+
+
+int toAnyBase(int n, int toBase); // From base 10 (Step 2)
+int toBaseTen(char array[256], int fromBase); // From any base (Step 3)
+int fromAnyToAny(char input[],int fromBase,int toBase); // From any base to any Base (Step 1)
+
+int main()
+{    
+   char input[10]; // Keeps the input as an integral type, meaning the underlying value is stored as an integer.    
+   int fromBase=0;    
+   int toBase=0;    
+   int answer=0;    
+   int answer2=0;    
+   // We declared variables and initializated them to 0 to avoid any error.
+    
+printf("Type your number :");    
+fgets(input, sizeof(input),stdin); // reads content of a character string from the specified stream, the reading flow is therefore imposed: stdin. The string will be read until an end of stream character.    
+printf("\n Type base of input: ");    
+scanf("%d",&fromBase);     
+printf("\n Type base of output: ");    
+scanf("%d",&toBase);    
+answer=fromAnyToAny(input,fromBase,toBase); // Inputs and outputs have been defined.    
+getch(); // Pauses the output console. waits for any character input from the keyboard. This is to stop the program from running for the next step. Same principle as system(“pause”) command in C++.        
+
+return 0;
+
+}
+
+int fromAnyToAny(char input[],int fromBase,int toBase) // (Step 1)
+{    
+   int x=0;    
+   int y=0;    
+x=toBaseTen(input,fromBase); // From the input (Any base), it is converted to base 10    
+y=toAnyBase(x,toBase); // It is now being converted to any other entry base according to the input base.    
+
+return y;
+
+printf("%d", y);
+
+}
+
+int toAnyBase(int n, int toBase) // (Step 2)
+{     
+   int counter=0; // because of array, we initialize it with zero, this is a condition to make the computer know when to stop looping.    
+   int dic[256];     
+   int quo=1; // Computes quotient, the quotient is the number itself.    
+   int answer;    // Conversion from base 10 to any other base according to the selected base inputs            
+
+   while(quo!=0)        
+    {            
+       quo=n/toBase; // The division is done according to the base entries            
+       dic[counter]= n % toBase;            
+       counter++;            
+       n=quo;            // Given boolean condition        
+
+}            
+
+   while(counter>0)        
+    {            
+       printf("%d",dic[counter-1]);            
+       counter--; // Given boolean condition1
+       
+}         
+
+// Control flow statement that allows code to be executed repeatedly        
+printf("\n");
+
+return answer;
+
+}        
+
+int toBaseTen(char array[256], int fromBase) // (Step 3)
+{    
+   int i,j;    
+   int arraylen; // Returns the length of a given array.    
+   int n;    
+   int sum=0; // We declared variable 'sum' and initializated it to 0 to avoid any error.    
+   int pwr; // Returns the result of raising a number to a power.            
+
+     arraylen=strlen(array)- 1; // Calculates the length of a given string.         
+     for(i=0,j=arraylen-1;i<arraylen,j>-1;i++,j--) // Iterate the statements several times            
+     
+      {                        
+         n = (array[i] - '0');              
+         sum+= n*pow(fromBase,j); 
+         
+}     
+
+return sum; // The strlen is defined in string.h header file. It doesn’t count null character ‘\0’.                 
+
+} 
